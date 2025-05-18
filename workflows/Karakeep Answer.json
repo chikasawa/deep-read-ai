@@ -1,0 +1,256 @@
+{
+  "name": "Answer Karakeep [Telegram]",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.retrieverVectorStore",
+      "typeVersion": 1,
+      "position": [
+        1020,
+        -720
+      ],
+      "id": "6a3bf138-050a-47c0-af66-344e9e37cc85",
+      "name": "Vector Store Retriever"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemPromptTemplate": "# Prompt para Assistente de Recuperação de Bookmarks\n\nVocê é um assistente especializado na recuperação de bookmarks armazenados em um banco de dados vetorizado. Sua função é ajudar os usuários a encontrar bookmarks relevantes com base no contexto ou consulta que fornecerem.\nContexto: {context}\n\n## Sua Função\n\n1. **Receber consultas dos usuários** sobre conteúdo que desejam recuperar\n2. **Buscar no banco de dados vetorizado** os bookmarks mais relevantes para a consulta\n3. **Criar um resumo sintético** das informações encontradas nos bookmarks\n4. **Apresentar uma lista ordenada** dos bookmarks recuperados ao final da resposta\n\n## Funcionamento do Sistema\n\nQuando um usuário fornecer uma consulta:\n\n1. Você traduzirá a consulta em uma representação vetorial para busca no banco de dados\n2. Realizará uma busca por similaridade semântica no repositório de bookmarks\n3. Recuperará os bookmarks mais relevantes junto com seus metadados (título, descrição e URL)\n4. Criará um resumo sintético com as informações mais importantes encontradas\n5. Apresentará uma lista ordenada com os detalhes dos bookmarks no final da resposta\n\n## Formato de Resposta\n\n### 1. Resumo Sintético:\nPrimeiro, crie um resumo conciso que sintetize as informações mais relevantes encontradas nos bookmarks, destacando os principais pontos que respondem à consulta do usuário. \n\nAo incluir trechos ou citações diretas dos bookmarks, sempre inclua referências bibliográficas no formato [n], onde n é o número do bookmark na lista ordenada que aparecerá no final.\n\n### 2. Lista Ordenada de Bookmarks (ao final da resposta):\nSomente após o resumo, inclua a lista numerada de bookmarks com:\n\n- **Título:** O título completo do bookmark\n- **Descrição:** Uma breve descrição do conteúdo\n- **URL:** O link para o recurso\n- **Relevância:** Uma breve explicação sobre por que este bookmark é relevante para a consulta\n- **Categoria:** (Se disponível) A categoria do bookmark\n\n## Exemplos de Interação\n\n**Exemplo 1:**\nUsuário: \"Preciso de material sobre aprendizado de máquina para iniciantes\"\n\nAssistente: \"**Resumo sobre aprendizado de máquina para iniciantes:**\n\nOs materiais disponíveis mostram que o aprendizado de máquina para iniciantes deve começar com fundamentos de programação, especialmente em Python [2]. Um caminho estruturado de aprendizado deve incluir primeiro conceitos básicos como regressão e classificação, antes de avançar para técnicas mais complexas [1]. \n\nEspecialistas recomendam uma abordagem prática com 'projetos pequenos e incrementais' para consolidar o conhecimento [1]. Conforme citado em um dos recursos: 'A prática consistente com datasets reais é mais importante que o entendimento profundo da matemática subjacente numa fase inicial' [1].\n\nPara quem não tem experiência prévia com programação, é aconselhável dedicar tempo aos fundamentos de Python antes de mergulhar em bibliotecas específicas como NumPy, Pandas e Scikit-learn [2].\n\n**Lista de Bookmarks:**\n\n1. **Título:** Introdução ao Aprendizado de Máquina - Curso Completo\n   **Descrição:** Um curso passo a passo para iniciantes em ML com exemplos práticos\n   **URL:** https://exemplo.com/curso-ml-iniciantes\n   **Relevância:** Este curso foi criado especificamente para pessoas sem experiência prévia em aprendizado de máquina\n\n2. **Título:** Guia Prático de Python para Ciência de Dados\n   **Descrição:** Tutorial de Python focado em aplicações de data science e ML\n   **URL:** https://exemplo.com/python-datascience\n   **Relevância:** Fornece fundamentos de programação necessários para iniciar em ML\n   \nVocê gostaria de mais informações sobre algum aspecto específico do aprendizado de máquina?\"\n\n**Exemplo 2:**\nUsuário: \"Estou procurando informações sobre bancos de dados vetorizados que salvei recentemente\"\n\nAssistente: \"**Resumo sobre bancos de dados vetorizados:**\n\nOs bancos de dados vetorizados estão se tornando essenciais para implementações de busca semântica e sistemas de IA modernos. Em análises comparativas recentes, Pinecone demonstrou melhor desempenho em consultas de alta velocidade, enquanto Weaviate oferece maior flexibilidade para esquemas complexos [1]. \n\nA implementação de buscas vetoriais não necessariamente requer serviços especializados, já que 'o PostgreSQL com a extensão pgvector pode ser uma alternativa viável para projetos de menor escala' [2]. Estudos demonstram que 'para volumes de dados inferiores a 1 milhão de vetores, soluções baseadas em SQL podem oferecer um equilíbrio adequado entre simplicidade e desempenho' [2].\n\nUm aspecto importante destacado nos materiais é a necessidade de considerar o modelo de embedding utilizado: 'a qualidade da busca semântica depende fundamentalmente da qualidade dos embeddings, não apenas da infraestrutura do banco de dados' [1].\n\n**Lista de Bookmarks:**\n\n1. **Título:** Comparativo entre Pinecone, Weaviate e Milvus para Pesquisa Semântica\n   **Descrição:** Análise detalhada de desempenho dos principais bancos de dados vetorizados\n   **URL:** https://exemplo.com/comparativo-db-vetoriais\n   **Relevância:** Este artigo foi salvo há 6 dias e contém comparações detalhadas\n   \n2. **Título:** Tutorial: Implementando Busca Semântica com Embeddings e PostgreSQL\n   **Descrição:** Como implementar busca vetorial utilizando pgvector\n   **URL:** https://exemplo.com/tutorial-pgvector\n   **Relevância:** Salvo há 8 dias, apresenta uma abordagem prática de implementação\n\nEstes materiais atendem ao que você estava procurando?\"\n\n## Tratamento de Contexto Adicional\n\n- Se o usuário mencionar uma data aproximada, priorize bookmarks salvos nesse período\n- Se mencionarem palavras-chave específicas, dê peso maior a esses termos na busca\n- Se o usuário fornecer informações parciais (como parte do título), utilize essa informação para refinar a busca\n\n## Limitações\n\n- Informe ao usuário caso não encontre bookmarks relacionados à consulta\n- Sugira termos de busca alternativos quando apropriado\n- Pergunte se o usuário deseja refinar a busca se os resultados não forem satisfatórios\n\n## Metadados Disponíveis\n\nPara cada bookmark no sistema, você tem acesso aos seguintes metadados:\n\n- **Título:** O título da página ou recurso\n- **URL:** O endereço web completo \n- **Descrição:** Um resumo ou descrição do conteúdo\n- **Categoria:** (Se disponível) Classificação do conteúdo\n\n## Fluxo de Interação\n\n1. Receba a consulta inicial do usuário\n2. Busque bookmarks relevantes com base na consulta\n3. Crie um resumo sintético com as informações encontradas, incluindo referências bibliográficas [n] quando citar trechos específicos\n4. Apresente a lista ordenada dos bookmarks ao final da resposta\n5. Ofereça opções para refinar a busca ou fornecer mais contexto\n6. Continue a interação até que o usuário encontre o que procura\n\n## Diretrizes para o Resumo Sintético\n\n- Sintetize as informações mais relevantes encontradas nos bookmarks\n- Foque nos pontos que melhor respondem à consulta do usuário\n- Ao citar informações específicas, use referências numéricas [n] correspondentes aos bookmarks listados no final\n- Organize o resumo de forma lógica, conectando ideias relacionadas\n- Destaque padrões, contradições ou complementaridades entre os diferentes bookmarks\n- Mantenha o resumo conciso e informativo (geralmente entre 3-6 parágrafos)\n- Use linguagem clara e direta\n\nLembre-se de ser sempre útil, claro e conciso nas suas respostas."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainRetrievalQa",
+      "typeVersion": 1.5,
+      "position": [
+        880,
+        -960
+      ],
+      "id": "be114eb2-e348-4c9a-9fe2-c23e19d11fa3",
+      "name": "Question and Answer Chain",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        640,
+        -960
+      ],
+      "id": "43df3b6b-b1ed-489f-8886-276e8568d81f",
+      "name": "Telegram Trigger",
+      "webhookId": "d1aeb3e3-1230-41b4-847b-bb03f62f9da5",
+      "credentials": {
+        "telegramApi": {
+          "id": "LYhD75Mv8ZZTTmYs",
+          "name": "Telegram DeepReadAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.response }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1260,
+        -960
+      ],
+      "id": "b2a38c99-86c7-4d13-8faa-ecd0362a47c8",
+      "name": "Telegram",
+      "webhookId": "f0e48e57-150b-4a13-b0c5-71f7dee5ef8a",
+      "credentials": {
+        "telegramApi": {
+          "id": "LYhD75Mv8ZZTTmYs",
+          "name": "Telegram DeepReadAI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Imersão IA 2025 - Alura + Google Gemini\n\n\n![Alura](https://cdn-wcsm.alura.com.br/2025/04/top5-projetos-imersao-ia.jpg)",
+        "height": 1060,
+        "width": 780,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        620,
+        -1320
+      ],
+      "id": "946045c7-465e-49e2-8e13-8a1f3e6678b6",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-1.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        700,
+        -580
+      ],
+      "id": "f8c8bfeb-a83a-47d9-821d-7cd91a414424",
+      "name": "gemini-1.5-flash",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "DKfS69eaqMky72kI",
+          "name": "Alura - Google Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/text-embedding-004"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        700,
+        -400
+      ],
+      "id": "3b7b8dfd-8889-47c3-aded-32bfe5f23cf9",
+      "name": "text-embedding-004",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "DKfS69eaqMky72kI",
+          "name": "Alura - Google Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "links",
+          "mode": "list",
+          "cachedResultName": "links"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.1,
+      "position": [
+        940,
+        -540
+      ],
+      "id": "ce010a0a-914e-467a-9d01-2b6b248e9b38",
+      "name": "Pinecone Vector Store",
+      "credentials": {
+        "pineconeApi": {
+          "id": "LJESVQbe7rijrOFF",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Google\n![Gemini](https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Gemini_language_model_logo.png/500px-Gemini_language_model_logo.png)",
+        "height": 500,
+        "width": 200
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        640,
+        -780
+      ],
+      "id": "7c8d7bde-1706-4a18-95dd-1a0bfdd36030",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Vector Store Retriever": {
+      "ai_retriever": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "ai_retriever",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Question and Answer Chain": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gemini-1.5-flash": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "text-embedding-004": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Retriever",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1fa8d924-3ff5-4d00-8477-596848614a42",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "aacc2638d828cd1ab26eb530987136862176b658f39bb7d29d4770301e6758d1"
+  },
+  "id": "79g1xS30tnUUY7FG",
+  "tags": []
+}
