@@ -91,6 +91,55 @@ Os usuários podem:
 ### Interface do Telegram
 ![Interface do Telegram](docs/img/Screenshot%202025-05-17%20at%2023.20.46.png)
 
+## 🤖 Prompt Engineering
+
+O sistema utiliza um prompt específico para otimizar a interação com o usuário via Telegram. Este prompt foi cuidadosamente elaborado para garantir respostas precisas e úteis na recuperação de bookmarks.
+
+### Estrutura do Prompt
+
+O prompt define um assistente especializado em recuperação de bookmarks com as seguintes características:
+
+1. **Função Principal**
+   - Receber consultas dos usuários
+   - Buscar no banco de dados vetorizado
+   - Criar resumos sintéticos
+   - Apresentar lista ordenada de resultados
+
+2. **Formato de Resposta**
+   - Resumo sintético com referências bibliográficas
+   - Lista ordenada de bookmarks com:
+     - Título
+     - Descrição
+     - URL
+     - Relevância
+     - Categoria (quando disponível)
+
+3. **Tratamento de Contexto**
+   - Priorização por data
+   - Peso para palavras-chave
+   - Refinamento de busca com informações parciais
+
+4. **Diretrizes de Interação**
+   - Clareza nas respostas
+   - Sugestões de refinamento
+   - Tratamento de limitações
+   - Fluxo de interação estruturado
+
+### Exemplos de Interação
+
+O prompt inclui exemplos práticos de interação, demonstrando:
+- Consultas sobre tópicos específicos
+- Busca por materiais recentes
+- Tratamento de diferentes tipos de consultas
+
+### Metadados Utilizados
+
+Para cada bookmark, o sistema processa:
+- Título
+- URL
+- Descrição
+- Categoria (quando disponível)
+
 ## 📝 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
