@@ -1,5 +1,7 @@
 # Deep Read AI
 
+![Deep Read AI](docs/img/036936d122dcb85e96fe1b0b9751ecb67affce201fc4a8f3d2621ebc90dc6f43.png)
+
 Deep Read AI é um sistema inteligente que não apenas salva links, mas realiza uma leitura profunda do conteúdo utilizando Inteligência Artificial. O projeto foi desenvolvido com o apoio da Alura e Google Gemini.
 
 ## 🚀 Visão Geral
