@@ -1,0 +1,47 @@
+🚀 Deep Read AI: Transformando Bookmarks em Conhecimento Inteligente
+
+Olá comunidade! Estou empolgado em compartilhar meu mais recente projeto: o Deep Read AI 🧠
+
+O que é?
+Um sistema inteligente que vai além do simples salvamento de links. Ele "lê profundamente" o conteúdo dos seus bookmarks usando IA para criar um banco de conhecimento personalizado e facilmente acessível.
+
+✨ Principais Features:
+• 🤖 Processamento inteligente de conteúdo com Google Gemini
+• 🔍 Busca semântica através de banco de dados vetorial (Pinecone)
+• 📱 Interface amigável via Telegram
+• 🔄 Automação completa com N8N
+• 📚 Gerenciamento de bookmarks com KaraKeep
+
+🎯 Como Funciona?
+Salve um bookmark no KaraKeep,
+O sistema processa automaticamente o conteúdo,
+Consulte seus bookmarks via Telegram usando linguagem natural,
+Receba respostas contextuais e relevantes,
+
+🔗 Links:
+ • Projeto: ⁠📣┇votação⁠
+• Repositório: https://github.com/chikasawa/deep-read-ai
+• Demonstração em vídeo: [links dos vídeos]
+
+💡 Por que é diferente?
+Não é apenas um gerenciador de bookmarks,
+Entende o contexto do conteúdo,
+Permite buscas por significado, não apenas palavras-chave,
+Interface conversacional via Telegram,
+
+🛠️ Tecnologias Utilizadas:
+Google Gemini (IA),
+Pinecone (Banco de Dados Vetorial),
+N8N (Automação),
+KaraKeep (Bookmarks),
+Telegram (Interface),
+
+🎯 Para quem é?
+Pesquisadores,
+Estudantes,
+Profissionais que precisam organizar referências,
+Qualquer pessoa que queira transformar seus bookmarks em um banco de conhecimento inteligente,
+
+Estou aberto a feedback, sugestões e colaborações! Se você se interessou pelo projeto, não deixe de dar uma olhada no repositório e, se gostar, considere dar uma ⭐️
+
+#AI #Automation #Productivity #OpenSource 
