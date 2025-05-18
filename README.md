@@ -12,6 +12,29 @@ O sistema Deep Read AI automatiza o processo de leitura e compreensão de conte�
 - **Pinecone**: Banco de dados vetorial para armazenamento de embeddings
 - **Telegram**: Interface de usuário para interação
 
+## 📊 Banco de Dados Vetorial
+
+O Pinecone, nosso banco de dados vetorial, é uma peça fundamental do sistema. Ele funciona da seguinte maneira:
+
+### O que são Vetores?
+- Vetores são representações numéricas de texto ou conteúdo
+- Cada vetor captura o significado semântico do conteúdo
+- Vetores similares representam conteúdos semanticamente relacionados
+
+### Como Funciona no Deep Read AI
+1. **Geração de Embeddings**: O Google Gemini converte o conteúdo dos bookmarks em vetores
+2. **Armazenamento**: Os vetores são armazenados no Pinecone
+3. **Busca Semântica**: Quando um usuário faz uma consulta:
+   - A consulta é convertida em vetor
+   - O Pinecone encontra os vetores mais similares
+   - Retorna os conteúdos mais relevantes semanticamente
+
+### Vantagens
+- Busca por significado, não apenas palavras-chave
+- Encontra conteúdo relacionado mesmo com palavras diferentes
+- Permite consultas em linguagem natural
+- Alta performance em buscas semânticas
+
 ## 🔄 Workflows
 
 ### 1. Processamento de Novos Bookmarks
@@ -56,11 +79,17 @@ Os usuários podem:
 
 ## 📸 Screenshots dos Workflows
 
-*[Aqui serão adicionadas as screenshots dos workflows do N8N]*
+### Interface do Karakeep para adicionar um novo Bookmark
+![Interface Karakeep](docs/img/Screenshot%202025-05-17%20at%2022.47.57.png)
 
-## 🤝 Contribuição
+### Workflow de Processamento de Bookmarks
+![Workflow de Processamento de Bookmarks](docs/img/Screenshot%202025-05-17%20at%2022.51.25.png)
 
-Contribuições são bem-vindas! Por favor, leia as diretrizes de contribuição antes de submeter pull requests.
+### Workflow de Consulta via Telegram
+![Workflow de Consulta via Telegram](docs/img/Screenshot%202025-05-17%20at%2022.51.56.png)
+
+### Interface do Telegram
+![Interface do Telegram](docs/img/Screenshot%202025-05-17%20at%2023.20.46.png)
 
 ## 📝 Licença
 
