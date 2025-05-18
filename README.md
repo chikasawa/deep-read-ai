@@ -91,6 +91,14 @@ Os usuários podem:
 ### Interface do Telegram
 ![Interface do Telegram](docs/img/Screenshot%202025-05-17%20at%2023.20.46.png)
 
+## 🎥 Demonstração em Vídeo
+
+### Workflow de Processamento de Bookmarks
+https://github.com/user-attachments/assets/ffdf238a-01ec-4f70-aabe-3a16f1c3223f
+
+### Workflow de Consulta via Telegram
+https://github.com/user-attachments/assets/b1841a51-8c3e-45b1-a3d0-832d04adc10e
+
 ## 🤖 Prompt Engineering
 
 O sistema utiliza um prompt específico para otimizar a interação com o usuário via Telegram. Este prompt foi cuidadosamente elaborado para garantir respostas precisas e úteis na recuperação de bookmarks.
